@@ -64,10 +64,9 @@ h2.date {
     transform: translateX(-50%);
 }
 div.widget-container {
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     position: absolute;
     width: 92vh;
     height: 46vh;
@@ -84,10 +83,26 @@ div.widget {
     background: linear-gradient(45deg,#1B1B1BAA, #1B1B1B9E);
     backdrop-filter: blur(5vh);
     border-radius: 2vh;
+    transition: 0.5s ease;
 }
 
 .widget.x2{
     width: 40vh;
     grid-column:3/5;
     grid-row: 2;
+}
+
+span.edit {
+    position: absolute;
+    top: 0.5vh;
+    right: 0.5vh;
+    font-family: Roboto;
+    font-weight: 700;
+    font-size: 2vh;
+    letter-spacing: 0.1vh;
+    color: #ffffffd8;
+    background-color: #1B1B1B9E;
+    padding: 0.6vh 2.5vh;
+    border-radius: 100vh;
+    cursor: pointer;
 }
