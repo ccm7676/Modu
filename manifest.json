@@ -1,8 +1,11 @@
 {
     "name": "Dash It",
     "version": "1.0",
-    "description": "A modern and elegant new tab with widgets",
-    "permissions": ["storage"],
+    "description": "A modern and elegant new tab page with widgets",
+    "permissions": [
+        "storage",
+        "topSites"
+    ],
     "chrome_url_overrides": {
       "newtab": "index.html"
     },
