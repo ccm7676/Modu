@@ -3,6 +3,7 @@ const timeTxt = document.querySelector("h1.time");
 const dateTxt = document.querySelector("h2.date");
 const widgetContainer = document.querySelector("div.widget-container");
 const mainContainer = document.querySelector("div.main-container");
+const editBtn = document.querySelector("span.edit");
 
 //Date Arrays
 const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -17,7 +18,7 @@ let initMY = 0;
 let initWX = 0;
 let initWY = 0;
 let downM = false;
-
+let editEnabled = false;
 
 //updates formats and updates date and time
 function updateTime(){
@@ -40,6 +41,18 @@ function updateTime(){
 updateTime();
 setInterval(updateTime,1000);
 
+
+editBtn.addEventListener("click", () => {
+    if(editEnabled) {
+        editEnabled = false;
+        editBtn.innerHTML = "Edit";
+    }
+    else {
+        editEnabled = true;
+        editBtn.innerHTML = "Done";
+    }
+})
+
 function genWidgets() {
     for(i = 0; i < widgets.length; i++ ) {
 
@@ -53,15 +66,17 @@ function genWidgets() {
         //DRAG FUNCTIONS
         newWidget.addEventListener("mousedown", (e) => {
 
-            e.preventDefault();
-            downM = true;
+            if (editEnabled){
+                e.preventDefault();
+                downM = true;
 
-            let rect = newWidget.getBoundingClientRect();
+                let rect = newWidget.getBoundingClientRect();
 
-            initMX = e.clientX;
-            initMY = e.clientY;
-            initWX = rect.left;
-            initWY = rect.top;
+                initMX = e.clientX;
+                initMY = e.clientY;
+                initWX = rect.left;
+                initWY = rect.top;
+            }
 
             //update postion of element being draged
             document.onmousemove = (e) => {
@@ -73,24 +88,27 @@ function genWidgets() {
                     newWidget.style.setProperty("left", (initWX - initMX + e.clientX).toString() + "px");
                     newWidget.style.left = e.clientX;
                     mainContainer.appendChild(newWidget);
+
+                    document.onmouseup = (e) => {
+                        //get element at mouse position
+                        let mouseElmnt = document.elementsFromPoint(e.clientX,e.clientY)[1];
+        
+                        newWidget.style.setProperty("position", "unset");
+                        widgetContainer.appendChild(newWidget);
+        
+                        //check if element is inside widget cointainer
+                        if(mouseElmnt.parentElement == widgetContainer){
+                            widgetContainer.insertBefore(newWidget, mouseElmnt);
+                        }
+                        
+                        document.onmousemove = null;
+                        downM = false;
+                    }
                     
                 }
             };
 
-            document.onmouseup = (e) => {
-                //get element at mouse position
-                let mouseElmnt = document.elementsFromPoint(e.clientX,e.clientY)[0];
-
-                newWidget.style.setProperty("position", "unset");
-                widgetContainer.appendChild(newWidget);
-
-                //check if element is inside widget cointainer
-                if(mouseElmnt.parentElement == widgetContainer){
-                    widgetContainer.insertBefore(newWidget, mouseElmnt);
-                }
-                
-                document.onmousemove = null;
-            }
+            
         });
 
         
