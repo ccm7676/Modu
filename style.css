@@ -1,0 +1,90 @@
+@font-face {
+    font-family: Rubik;
+    src: url(Rubik-VariableFont_wght.ttf);
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(Roboto-Regular.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+div.img-container {
+    position: absolute;
+    z-index: 0;
+    background: url(/IMG_4543\ 1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+div.main-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2vh) brightness(0.8);
+}
+
+h1.time {
+    position: absolute;
+    color: #ffffff;
+    font-family: Rubik;
+    font-size: 13vh;
+    top: 10vh;
+    left: 50%;
+    font-weight: 700;
+    transform: translateX(-50%);
+}
+
+h2.date {
+    position: absolute;
+    color: #ffffffea;
+    font-family: Roboto;
+    font-weight: 600;
+    font-size: 2.5vh;
+    text-align: justify;
+    letter-spacing: 0.3vh;
+    word-spacing: 0.4vh;
+    top: 25vh;
+    left: 50%;
+    transform: translateX(-50%);
+}
+div.widget-container {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    position: absolute;
+    width: 92vh;
+    height: 46vh;
+    top: calc(50% + 5vh);
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+div.widget {
+    position: relative;
+    width: 17vh;
+    height: 17vh;
+    margin: 3vh;
+    background: linear-gradient(45deg,#1B1B1BAA, #1B1B1B9E);
+    backdrop-filter: blur(5vh);
+    border-radius: 2vh;
+}
+
+.widget.x2{
+    width: 40vh;
+}
