@@ -64,10 +64,6 @@ function genWidgets() {
 
         //DRAG FUNCTIONS
         newWidget.addEventListener("mousedown", (e) => {
-            let wrect = widgetContainer.getBoundingClientRect();
-            let offsetX = wrect.left;
-            let offsetY = wrect.top;
-
             e.preventDefault();
             let rect = newWidget.getBoundingClientRect();
             downM = true;
@@ -81,18 +77,19 @@ function genWidgets() {
                 if (downM) {
 
                     newWidget.style.setProperty("position", "absolute");
-                    newWidget.style.setProperty("top", (initWY - initMY + e.clientY - offsetY).toString() + "px");
-                    newWidget.style.setProperty("left", (initWX - initMX + e.clientX - offsetX).toString() + "px");
+                    newWidget.style.setProperty("top", (initWY - initMY + e.clientY).toString() + "px");
+                    newWidget.style.setProperty("left", (initWX - initMX + e.clientX).toString() + "px");
                     newWidget.style.left = e.clientX;
-                  
-                    widgetContainer.insertBefore(newWidget, document.elementsFromPoint(e.clientX,e.clientY)[0]);
-              
+                    mainContainer.appendChild(newWidget);
                     
                 }
             };
 
             document.onmouseup = (e) => {
                 newWidget.style.setProperty("position", "unset");
+
+                widgetContainer.appendChild(newWidget);
+                widgetContainer.insertBefore(newWidget, document.elementsFromPoint(e.clientX,e.clientY)[0]);
                 document.onmousemove = null;
             }
         });
