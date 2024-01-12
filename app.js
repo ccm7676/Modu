@@ -42,36 +42,28 @@ setInterval(updateTime,1000);
 
 function genWidgets() {
     for(i = 0; i < widgets.length; i++ ) {
-        //calculate row and column for widget
-        wrow = Math.floor(i/4) +1;
-        wcol = (i+1) - (wrow-1)*4;
 
         //create widget
         let newWidget = document.createElement("div");
 
         //set classes and id
         newWidget.classList = widgets[i];
-        newWidget.id = i;
 
-        //check for large widgets
-        if (widgets[i].includes("x2")) {
-            wcol = wcol.toString() + "/" + (wcol + 2).toString();
-        }
-
-        //set row and column positioning 
-        newWidget.style.setProperty("grid-row", wrow.toString());
-        newWidget.style.setProperty("grid-column", wcol.toString());
 
         //DRAG FUNCTIONS
         newWidget.addEventListener("mousedown", (e) => {
+
             e.preventDefault();
-            let rect = newWidget.getBoundingClientRect();
             downM = true;
+
+            let rect = newWidget.getBoundingClientRect();
+
             initMX = e.clientX;
             initMY = e.clientY;
             initWX = rect.left;
             initWY = rect.top;
 
+            //update postion of element being draged
             document.onmousemove = (e) => {
                 e.preventDefault()
                 if (downM) {
@@ -86,10 +78,17 @@ function genWidgets() {
             };
 
             document.onmouseup = (e) => {
-                newWidget.style.setProperty("position", "unset");
+                //get element at mouse position
+                let mouseElmnt = document.elementsFromPoint(e.clientX,e.clientY)[0];
 
+                newWidget.style.setProperty("position", "unset");
                 widgetContainer.appendChild(newWidget);
-                widgetContainer.insertBefore(newWidget, document.elementsFromPoint(e.clientX,e.clientY)[0]);
+
+                //check if element is inside widget cointainer
+                if(mouseElmnt.parentElement == widgetContainer){
+                    widgetContainer.insertBefore(newWidget, mouseElmnt);
+                }
+                
                 document.onmousemove = null;
             }
         });
